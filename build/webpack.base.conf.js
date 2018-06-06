@@ -75,6 +75,25 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              alias: {
+                "normalize.css": "~normalize.css/normalize.css"
+              }
+            }
+          },
+          {
+            loader: "sass-loader",
+          }
+        ]
+      }
     ]
   },
   node: {

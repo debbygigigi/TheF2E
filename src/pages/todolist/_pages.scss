@@ -9,9 +9,22 @@ $gray-medium: #C8C8C8;
 $gray-dark: #757575;
 $white: #ffffff;
 $dark: #000000;
+$bg-gray: #E1E1E1;
 
 // font size
-$font-title: 24px;
+$font-size-title: 24px;
+$font-size-placeholder: 16px;
+
+// font family
+$font-family-title: "Roboto-Medium";
+$font-family-placeholder: "Roboto Regular";
+
+// breakpoint
+$md: 620px;
+
+* {
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
 
 p {
     font-size: 16px;

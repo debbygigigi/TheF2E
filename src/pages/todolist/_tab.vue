@@ -1,43 +1,55 @@
 <template>
-    <div>
+    <div class="tabs__wrapper">
         <ul class="tabs">
             <li
-            :key="index"
-            :class="{active: index == active}"
-            v-for="(status, index) in statusList">
+                :key="index"
+                :class="{active: index == active}"
+                v-for="(status, index) in statusList"
+                @click="changeTab(index)">
                 {{ status }}
                 <span v-show="index == active"></span>
             </li>
         </ul>
     </div>
+
 </template>
 
 <script>
 export default {
-  name: "tab",
-  data() {
+  name: 'tab',
+  data () {
     return {
       active: 0,
-      statusList: ["My Tasks", "In Progress", "Completed"]
+      statusList: ['My Tasks', 'In Progress', 'Completed']
     };
+  },
+  methods: {
+    changeTab (index) {
+      this.active = index;
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/pages/todolist/_pages.scss";
+.tabs__wrapper {
+  background: $blue;
+}
 .tabs {
   display: flex;
+  margin: auto;
+  max-width: $md;
   list-style: none;
   justify-content: space-between;
-  padding: 0 180px;
-  background: $blue;
-  margin: 0;
+
   li {
     padding: 24px;
     position: relative;
     line-height: 28px;
-    font-size: $font-title;
+    font-size: $font-size-title;
+    font-family: $font-family-title;
+    cursor: pointer;
     &.active {
       color: $white;
     }
