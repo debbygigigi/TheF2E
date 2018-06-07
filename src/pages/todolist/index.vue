@@ -1,25 +1,11 @@
 <template>
     <div class="wrapper">
         <tab></tab>
-
         <div class="content">
             <add></add>
-            <item class="item" :todo="todo" v-for="(todo, index) in todos" :key="index"></item>
+            <item class="item" :todo="todo" v-for="(todo, index) in todos" :key="index"
+                  mode="edit"></item>
         </div>
-        <!-- <div class="add">
-            <add></add>
-        </div> -->
-
-        <!-- <div>
-            <item></item>
-        </div> -->
-
-        <!-- <list>
-            <item></item>
-            <item></item>
-            <item></item>
-            <item></item>
-        </list> -->
     </div>
 </template>
 
@@ -27,6 +13,9 @@
 import tab from '@/pages/todolist/_tab';
 import add from '@/pages/todolist/_add';
 import item from '@/pages/todolist/_item';
+
+import Eventbus from '@/helper/eventbus';
+import store from '@/pages/todolist/store/index';
 
 const todos = [
   {
@@ -52,15 +41,25 @@ const todos = [
 export default {
   name: 'todolist',
   data () {
-    return {
-      todos,
-      nowEdit: 0
-    };
+    return {};
   },
   components: {
     tab,
     add,
     item
+  },
+  computed: {
+    todos () {
+      return store.state.todos;
+    },
+    nowEdit () {
+      return store.state.editId;
+    }
+  },
+  mounted () {
+    Eventbus.$on('editTodo', id => {
+      this.nowEdit = id;
+    });
   }
 };
 </script>

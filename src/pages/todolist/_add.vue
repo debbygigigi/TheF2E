@@ -1,12 +1,13 @@
 <template>
     <div>
         <input v-if="!edit" type="text" placeholder="＋ Add Task" @focus="showItem">
-        <item :todo="newTodo" :edit.sync="edit" v-if="edit"></item>
+        <item collapse mode="add" v-if="edit"></item>
     </div>
 </template>
 
 <script>
 import item from '@/pages/todolist/_item';
+import store from '@/pages/todolist/store/index';
 
 const newTodo = {
   id: 2,
@@ -23,13 +24,17 @@ export default {
   },
   data () {
     return {
-      edit: false,
       newTodo
     };
   },
+  computed: {
+    edit () {
+      return store.state.editId === 0;
+    }
+  },
   methods: {
     showItem () {
-      this.edit = true;
+      store.dispatch('editTodo', 0);
     }
   }
 };

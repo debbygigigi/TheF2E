@@ -36,9 +36,7 @@ $checkbox-width: 24px;
         transform: rotate(45deg);
       }
     }
-  
-    input:checked,
-    input:hover ~ .checkbox__indicator {
+    input:checked ~ .checkbox__indicator {
       background: $blue;
     }
   }

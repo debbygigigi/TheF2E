@@ -1,25 +1,27 @@
 <template>
     <div class="item__wrapper">
-        <div class="item__header">
+        <div
+            :class="{'collapse': collapse}"
+            class="item__header">
             <div class="header__main">
-                <label class="checkbox__wrapper" :for="'checkbox' + todo.id">
-                    <input type="checkbox" :id="'checkbox' + todo.id">
+                <label v-if="mode === 'edit'" class="checkbox__wrapper" :for="'checkbox' + todoData.id">
+                    <input type="checkbox" :id="'checkbox' + todoData.id">
                     <div class="checkbox__indicator"></div>
                 </label>
-                <input v-if="edit" class="input" type="text" placeholder="Type Something Here…">
-                <span v-if="!edit" class="input"> {{ todo.title }}</span>
-                <a href="" class="star">
+                <input v-if="collapse" v-model="todoData.title" class="input" type="text" placeholder="Type Something Here…">
+                <span v-if="!collapse" class="input"> {{ todoData.title }}</span>
+                <a v-if="mode === 'edit'" href="" class="star">
                     <font-awesome-icon :icon="['far', 'star']" />
                 </a>
-                <a href="" class="edit" @click.prevent="editTodo">
+                <a v-if="mode === 'edit'" href="" class="edit" @click.prevent="editTodo">
                     <font-awesome-icon icon="pencil-alt" />
                 </a>
             </div>
-            <div v-if="!edit" class="header__icon">
+            <div v-if="!collapse" class="header__icon">
                 <font-awesome-icon :icon="['far', 'file']" />
             </div>
         </div>
-        <div v-if="edit">
+        <div v-if="collapse">
             <div class="item__body">
                 <ul>
                     <li class="deadline">
@@ -49,14 +51,15 @@
                             Comment
                         </div>
                         <div class="body__content">
-                            <textarea class="comment-text" name="" id="" cols="30" rows="10" placeholder="Type your memo here..."></textarea>
+                            <textarea v-model="todoData.comment" class="comment-text" name="" id="" cols="30" rows="10" placeholder="Type your memo here..."></textarea>
                         </div>
                     </li>
                 </ul>
             </div>
             <div class="item__footer">
                 <button class="btn-cancel" @click="cancel"><span>＋</span>Cancel</button>
-                <button class="btn-add">＋ Add Task</button>
+                <button v-if="mode === 'add'" class="btn-add" @click="addTodo">＋ Add Task</button>
+                <button v-if="mode === 'edit'" class="btn-add" @click="cancel">＋ Save</button>
             </div>
         </div>
     </div>
@@ -64,6 +67,8 @@
 
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+import store from '@/pages/todolist/store/index';
+
 export default {
   components: {
     FontAwesomeIcon
@@ -76,20 +81,48 @@ export default {
     edit: {
       type: Boolean,
       default: false
+    },
+    mode: {
+      type: String,
+      default: null
     }
   },
   data () {
     return {
-      //   edit: false
+      todoData: {
+        id: 0,
+        title: '',
+        status: '',
+        stared: false,
+        deadline: null,
+        file: null,
+        comment: null
+      }
+      //   collapse: false
     };
+  },
+  computed: {
+    collapse () {
+      return this.todoData.id === store.state.editId;
+    }
+  },
+  mounted () {
+    if (this.mode === 'edit') {
+      Object.assign(this.todoData, this.todo);
+    }
   },
   methods: {
     cancel () {
-      this.$emit('update:edit', false);
+      store.dispatch('done');
     },
     editTodo () {
-      this.$emit('update:edit', true);
-    }
+      store.dispatch('editTodo', this.todoData.id);
+    },
+    addTodo () {
+      store.dispatch('addTodo', this.todoData);
+      store.dispatch('done');
+    },
+    saveTodo () {}
   }
 };
 </script>
