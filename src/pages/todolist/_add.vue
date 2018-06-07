@@ -1,11 +1,38 @@
 <template>
     <div>
-        <input type="text" placeholder="＋ Add Task">
+        <input v-if="!edit" type="text" placeholder="＋ Add Task" @focus="showItem">
+        <item :todo="newTodo" :edit.sync="edit" v-if="edit"></item>
     </div>
 </template>
 
 <script>
-export default {};
+import item from '@/pages/todolist/_item';
+
+const newTodo = {
+  id: 2,
+  title: '',
+  status: '',
+  stared: false,
+  deadline: null,
+  file: null,
+  comment: null
+};
+export default {
+  components: {
+    item
+  },
+  data () {
+    return {
+      edit: false,
+      newTodo
+    };
+  },
+  methods: {
+    showItem () {
+      this.edit = true;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

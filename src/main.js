@@ -5,6 +5,15 @@ import App from './App';
 import router from './router';
 import 'normalize.css';
 
+import fontawesome from '@fortawesome/fontawesome';
+import faStar from '@fortawesome/fontawesome-free-regular/faStar';
+import faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
+import faCalendarAlt from '@fortawesome/fontawesome-free-regular/faCalendarAlt';
+import faFile from '@fortawesome/fontawesome-free-regular/faFile';
+import faCommentDots from '@fortawesome/fontawesome-free-regular/faCommentDots';
+
+fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots);
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

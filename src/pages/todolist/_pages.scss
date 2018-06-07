@@ -8,24 +8,49 @@ $gray-light: #F2F2F2;
 $gray-medium: #C8C8C8;
 $gray-dark: #757575;
 $white: #ffffff;
-$dark: #000000;
+$black: #000000;
 $bg-gray: #E1E1E1;
 
 // font size
 $font-size-title: 24px;
+$font-size-subtitle: 20px;
 $font-size-placeholder: 16px;
 
 // font family
 $font-family-title: "Roboto-Medium";
-$font-family-placeholder: "Roboto Regular";
+$font-family-subtitle: "Roboto-Medium";
+$font-family-paragraph: "Roboto-Regular";
+$font-family-remark: "Roboto-Regular";
+$font-family-placeholder: "Roboto-Regular";
+$font-family-status: "Roboto-Italic";
 
 // breakpoint
 $md: 620px;
 
 * {
-    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    font-family: $font-family-paragraph, Helvetica, Arial, sans-serif;
 }
 
 p {
     font-size: 16px;
+}
+
+input {
+    border: none;
+
+    &:hover, &:focus {
+        outline: none;
+    }
+
+    &::placeholder {
+        font-family: $font-family-placeholder;
+        color: $gray-medium;
+    }
+}
+
+button {
+    cursor: pointer;
+    &:hover, &:focus {
+        outline: none;
+    }
 }

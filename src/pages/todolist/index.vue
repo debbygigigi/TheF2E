@@ -4,7 +4,7 @@
 
         <div class="content">
             <add></add>
-            <item></item>
+            <item class="item" :todo="todo" v-for="(todo, index) in todos" :key="index"></item>
         </div>
         <!-- <div class="add">
             <add></add>
@@ -27,8 +27,36 @@
 import tab from '@/pages/todolist/_tab';
 import add from '@/pages/todolist/_add';
 import item from '@/pages/todolist/_item';
+
+const todos = [
+  {
+    id: 1,
+    title: 'abc',
+    status: 'inProgress',
+    stared: false,
+    deadline: '6/10 12:00',
+    file: '',
+    comment: '123'
+  },
+  {
+    id: 2,
+    title: 'abcdedede',
+    status: 'inProgress',
+    stared: false,
+    deadline: '6/10 12:00',
+    file: '',
+    comment: '123'
+  }
+];
+
 export default {
   name: 'todolist',
+  data () {
+    return {
+      todos,
+      nowEdit: 0
+    };
+  },
   components: {
     tab,
     add,
@@ -41,7 +69,8 @@ export default {
 @import "@/pages/todolist/_pages.scss";
 .wrapper {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   background: $bg-gray;
   .add {
     text-align: center;
@@ -54,6 +83,10 @@ export default {
     padding-top: 24px;
     @media screen and (max-width: $md) {
       padding: 24px;
+    }
+
+    .item {
+      margin: 8px 0;
     }
   }
 }
