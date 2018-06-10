@@ -17,6 +17,8 @@ import faCommentDots from '@fortawesome/fontawesome-free-regular/faCommentDots';
 fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots);
 Vue.config.productionTip = false;
 
+console.log('test');
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
