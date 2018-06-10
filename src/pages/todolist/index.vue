@@ -14,29 +14,8 @@ import tab from '@/pages/todolist/_tab';
 import add from '@/pages/todolist/_add';
 import item from '@/pages/todolist/_item';
 
-import Eventbus from '@/helper/eventbus';
+// import Eventbus from '@/helper/eventbus';
 import store from '@/pages/todolist/store/index';
-
-const todos = [
-  {
-    id: 1,
-    title: 'abc',
-    status: 'inProgress',
-    stared: false,
-    deadline: '6/10 12:00',
-    file: '',
-    comment: '123'
-  },
-  {
-    id: 2,
-    title: 'abcdedede',
-    status: 'inProgress',
-    stared: false,
-    deadline: '6/10 12:00',
-    file: '',
-    comment: '123'
-  }
-];
 
 export default {
   name: 'todolist',
@@ -57,9 +36,9 @@ export default {
     }
   },
   mounted () {
-    Eventbus.$on('editTodo', id => {
-      this.nowEdit = id;
-    });
+    // Eventbus.$on('editTodo', id => {
+    //   this.nowEdit = id;
+    // });
   }
 };
 </script>

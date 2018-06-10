@@ -27,8 +27,13 @@ $font-family-status: "Roboto-Italic";
 // breakpoint
 $md: 620px;
 
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 * {
-    font-family: $font-family-paragraph, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    // font-family: $font-family-paragraph, Helvetica, Arial, sans-serif;
 }
 
 p {

@@ -30,8 +30,19 @@
                             Deadline
                         </div>
                         <div class="body__content deadline__date">
-                            <input type="text" placeholder="yyyy/mm/dd">
-                            <input type="text" placeholder="hh:mm">
+                            <el-date-picker
+                                v-model="todoData.deadline.date"
+                                type="date"
+                                placeholder="yyyy/mm/dd">
+                            </el-date-picker>
+                            <el-time-picker
+                                arrow-control
+                                v-model="todoData.deadline.time"
+                                :picker-options="{
+                                    selectableRange: '18:30:00 - 20:30:00'
+                                }"
+                                placeholder="hh:mm">
+                            </el-time-picker>
                         </div>
                     </li>
                     <li>
@@ -40,9 +51,16 @@
                             File
                         </div>
                         <div class="body__content">
-                            <button class="btn-file">
-                                ＋
-                            </button>
+                            <div class="file-list">
+                                <div class="file-item" v-for="file in todoData.files">
+                                    <p class="file-item__name">{{ file.name }}</p>
+                                    <small class="file-item__date">{{ handleFilesDate(file.lastModifiedDate) }}</small>
+                                </div>
+                                <label class="btn-file file-btn" for="input_file">
+                                    ＋
+                                    <input type="file" name="" id="input_file" @change="handleFile($event)">
+                                </label>
+                            </div>
                         </div>
                     </li>
                     <li>
@@ -68,6 +86,12 @@
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 import store from '@/pages/todolist/store/index';
+import { DatePicker, TimePicker } from 'element-ui';
+import Vue from 'vue';
+const moment = require('moment');
+
+Vue.use(DatePicker);
+Vue.use(TimePicker);
 
 export default {
   components: {
@@ -94,16 +118,22 @@ export default {
         title: '',
         status: '',
         stared: false,
-        deadline: null,
-        file: null,
+        deadline: {
+          date: null,
+          time: null
+        },
+        files: [],
         comment: null
       }
-      //   collapse: false
     };
   },
   computed: {
     collapse () {
       return this.todoData.id === store.state.editId;
+    },
+    deadlineFormat () {
+      // this.todoData
+      return moment(moment().format(this.todoData.deadline.time)).format('M/d');
     }
   },
   mounted () {
@@ -112,6 +142,17 @@ export default {
     }
   },
   methods: {
+    handleFile ($event) {
+      console.log($event);
+      console.log($event.target.files[0]);
+      this.todoData.files.push($event.target.files[0]);
+      console.log(this.todoData);
+    },
+    handleFilesDate (date) {
+      console.log(date);
+      moment(date).fromNow();
+      return moment(date).fromNow();
+    },
     cancel () {
       store.dispatch('done');
     },
@@ -163,6 +204,9 @@ export default {
       border: none;
       margin-left: 16px;
       margin-right: 16px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
 
       &:hover,
       &:focus {
@@ -242,18 +286,49 @@ export default {
   }
 }
 
-.btn-file {
-  background: $gray-medium;
-  width: 32px;
-  height: 32px;
-  color: #fff;
-  border-radius: 2px;
-  border: none;
-  font-size: 20px;
+// file
+.file-list {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  line-height: 32px;
+  .file-item {
+    max-width: 120px;
+    margin-right: 24px;
+    &__name {
+      white-space: nowrap;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 140px;
+      font-size: 16px;
+    }
+    &__date {
+      white-space: nowrap;
+      font-size: 16px;
+      color: $gray-dark;
+    }
+  }
+  .file-btn {
+    background: $gray-medium;
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    border-radius: 2px;
+    border: none;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 32px;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover {
+      background: $gray-dark;
+    }
+    input[type="file"] {
+      display: none;
+    }
+  }
 }
 
 .comment-text {
@@ -261,9 +336,14 @@ export default {
   width: 100%;
   height: 120px;
   border: none;
+  padding: 8px 16px;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
 
   &::placeholder {
-    padding: 8px 16px;
     font-family: $font-family-placeholder;
     color: $gray-medium;
   }

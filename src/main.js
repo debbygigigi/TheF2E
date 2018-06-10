@@ -4,6 +4,7 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import 'normalize.css';
+import 'element-ui/lib/theme-chalk/index.css';
 
 import fontawesome from '@fortawesome/fontawesome';
 import faStar from '@fortawesome/fontawesome-free-regular/faStar';
