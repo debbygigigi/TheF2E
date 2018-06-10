@@ -52,7 +52,7 @@
                         </div>
                         <div class="body__content">
                             <div class="file-list">
-                                <div class="file-item" v-for="file in todoData.files">
+                                <div class="file-item" v-for="(file, index) in todoData.files" :key="index">
                                     <p class="file-item__name">{{ file.name }}</p>
                                     <small class="file-item__date">{{ handleFilesDate(file.lastModifiedDate) }}</small>
                                 </div>
