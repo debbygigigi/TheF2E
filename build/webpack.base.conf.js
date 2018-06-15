@@ -94,7 +94,11 @@ module.exports = {
             loader: "sass-loader",
           }
         ]
-      }
+      },
+      {
+        test: /\.pug$/,
+        use: ['html-loader', 'pug-html-loader']
+      },
     ]
   },
   node: {
