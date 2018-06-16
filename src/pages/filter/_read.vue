@@ -9,7 +9,7 @@
             .img
                 img(:src="readAttraction.Picture1", alt="這是圖片")
             .article-content
-                h1 {{ readAttraction.Name }}
+                h1 {{ readAttraction.Name || 123 }}
                 .detail
                     span.name Ethan Foster
                     span.tag Entertainment
@@ -27,7 +27,8 @@ import store from '@/store/index';
 
 export default {
   mounted () {
-    // console.log(this.$route.params.id);
+    console.log(this.$route.params.id);
+    store.dispatch('setReadAttraction', this.$route.params.id);
   },
   computed: {
     readAttraction () {

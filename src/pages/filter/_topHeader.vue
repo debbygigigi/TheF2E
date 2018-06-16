@@ -4,15 +4,24 @@ header
         a(href="#")
             img(src="https://hexschool.github.io/THE_F2E_Design/week2-filter/assets/logo.svg", alt="")
     .search-input
-        el-input(type="text", placeholder="Explore your own activities", prefix-icon="el-icon-search", v-model="search")
+        el-input(type="text", placeholder="Explore your own activities", prefix-icon="el-icon-search", v-model="keyword", @change="search")
 </template>
 
 <script>
+import store from '@/store/index';
 export default {
   data () {
     return {
-      search: ''
+      keyword: ''
     };
+  },
+  methods: {
+    search (value) {
+      store.dispatch('setFilters', {
+        name: 'keyword',
+        value: value
+      });
+    }
   }
 };
 </script>

@@ -10,12 +10,11 @@
             i x
     .results
         .results-item(v-for="attraction in filterAttractions", @click="clickAttraction(attraction._id)")
-            // router-link.link(:to="`/filter/read/${attraction._id}`")
             .img
                 img(:src="attraction.Picture1", alt="這是圖片")
             .results-content
-                h2  {{ attraction.Name }}
-                p {{ attraction.Description }}
+                h2(v-html="attraction.Name")
+                p(v-html="attraction.Description")
                 .detail
                     span.name Ethan Foster
                     span.tag Entertainment
@@ -48,6 +47,11 @@ export default {
   }
 };
 </script>
+
+<style lang="sass">
+.highlight
+    background: yellow
+</style>
 
 <style lang="sass" scoped>
 @import @/pages/filter/main.sass
@@ -92,49 +96,49 @@ export default {
             width: 100%
             height: 100%
         .img
-          width: 220px
-          flex: 1 0 auto
-          @media screen and (max-width: $break-tablet)
-            width: 100%
-            height: 196px
-          img
-            width: 100%
-            height: 100%
-            object-fit: cover
+            width: 220px
+            flex: 1 0 auto
+            @media screen and (max-width: $break-tablet)
+                width: 100%
+                height: 196px
+            img
+                width: 100%
+                height: 100%
+                object-fit: cover
         .results-content
-          display: block
-          padding: 24px 20px
-          h2
-            color: $purple
-            line-height: 36px
-            font-family: "Roboto-Bold"
-            font-size: 24px
-            margin-bottom: 16px
-          p
-            -webkit-line-clamp: 3
-            -webkit-box-orient: vertical
-            overflow: hidden
-            text-overflow: ellipsis
-            display: -webkit-box
-            margin-bottom: 16px
-            line-height: 24px
-          .detail
-            margin-bottom: 16px
-            .name
-              font-family: Roboto-Bold
-              font-size: 16px
-              color: #000000
-              margin-right: 20px
-            .tag
-              background: $gray-medium
-              border-radius: 100px
-              color: white
-              padding: 0 16px
-              line-height: 24px
-              font-family: "Roboto-Italic"
-              font-style: italic
-          .other
-            color: $gray-dark
-            font-family: Roboto-Regular
+            display: block
+            padding: 24px 20px
+            h2
+                color: $purple
+                line-height: 36px
+                font-family: "Roboto-Bold"
+                font-size: 24px
+                margin-bottom: 16px
+            p
+                -webkit-line-clamp: 3
+                -webkit-box-orient: vertical
+                overflow: hidden
+                text-overflow: ellipsis
+                display: -webkit-box
+                margin-bottom: 16px
+                line-height: 24px
+            .detail
+                margin-bottom: 16px
+                .name
+                    font-family: Roboto-Bold
+                    font-size: 16px
+                    color: #000000
+                    margin-right: 20px
+                .tag
+                    background: $gray-medium
+                    border-radius: 100px
+                    color: white
+                    padding: 0 16px
+                    line-height: 24px
+                    font-family: "Roboto-Italic"
+                    font-style: italic
+            .other
+                color: $gray-dark
+                font-family: Roboto-Regular
 
 </style>

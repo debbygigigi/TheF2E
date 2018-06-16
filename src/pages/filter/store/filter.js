@@ -5,16 +5,35 @@ export default {
     attractions: [],
     activeId: null,
     filters: {
+      keyword: '',
       location: ''
     }
   },
   getters: {
     filterAttractions (state) {
       if (!state.attractions) return;
+      let res = state.attractions;
       if (state.filters.location) {
-        return state.attractions.filter((attr) => attr.Zone === state.filters.location);
+        res = res.filter((attr) => attr.Zone === state.filters.location);
+      }
+      if (state.filters.keyword) {
+        let tags = ['Name', 'Description'];
+        res = res.filter((attr) => {
+          let flag = false;
+          tags.forEach(tag => {
+            if (attr[tag].indexOf(state.filters.keyword) !== -1) {
+              flag = true;
+            }
+          });
+          return flag;
+        }).map(attr => {
+          attr.Name = attr.Name.replace(state.filters.keyword, `<span class=highlight>${state.filters.keyword}</span>`);
+          attr.Description = attr.Description.replace(state.filters.keyword, `<span class=highlight>${state.filters.keyword}</span>`);
+          return attr;
+        });
+        return res;
       } else {
-        return state.attractions;
+        return res;
       }
     },
     resultsTotal (state, getters) {
@@ -43,7 +62,6 @@ export default {
       context.commit('SET_FILTERS', content);
     },
     setReadAttraction (context, id) {
-      console.log('setReadAttraction', id);
       context.commit('SET_READ_ATTRACTION', id);
     }
   },
@@ -56,7 +74,6 @@ export default {
     },
     SET_READ_ATTRACTION (state, id) {
       state.activeId = id;
-      console.log(state.activeId);
     }
   }
 };

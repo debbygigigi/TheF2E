@@ -12,7 +12,6 @@ import topHeader from '@/pages/filter/_topHeader';
 import filters from '@/pages/filter/_filters';
 import results from '@/pages/filter/_results';
 import read from '@/pages/filter/_read';
-import store from '@/store/index';
 
 export default {
   components: {
