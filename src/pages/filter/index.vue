@@ -5,7 +5,7 @@
       filters
       main
         .search
-          h2.result-text Showing #[strong 15] results by…
+          h2.result-text Showing #[strong {{ resultsLength }}] results by…
           ul.tags
             li
               span Koahsiung
@@ -17,17 +17,24 @@
 </template>
 
 <script>
-import { Input } from 'element-ui';
-import topHeader from '@/pages/filter/_topHeader';
-import filters from '@/pages/filter/_filters';
-import results from '@/pages/filter/_results';
-import Vue from 'vue';
-Vue.use(Input);
+import topHeader from "@/pages/filter/_topHeader";
+import filters from "@/pages/filter/_filters";
+import results from "@/pages/filter/_results";
+import store from "@/store/index";
+
 export default {
   components: {
     topHeader,
     filters,
     results
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    resultsLength() {
+      return store.getters.resultsTotal;
+    }
   }
 };
 </script>
@@ -56,6 +63,8 @@ main
       display: flex
       margin-bottom: 24px
       color: $purple
+      list-style: none
+      padding: 0
       li
         border: 1px solid $purple
         border-radius: 100px

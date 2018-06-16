@@ -4,6 +4,8 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import 'normalize.css';
+
+import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 import fontawesome from '@fortawesome/fontawesome';
@@ -14,10 +16,10 @@ import faCalendarAlt from '@fortawesome/fontawesome-free-regular/faCalendarAlt';
 import faFile from '@fortawesome/fontawesome-free-regular/faFile';
 import faCommentDots from '@fortawesome/fontawesome-free-regular/faCommentDots';
 
+Vue.use(ElementUI);
+
 fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots);
 Vue.config.productionTip = false;
-
-console.log('test');
 
 /* eslint-disable no-new */
 new Vue({

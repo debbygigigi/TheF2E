@@ -1,10 +1,11 @@
 <template lang="pug">
     .filters
       .filters-item.locations
-        .top(@click="")
+        .top
           h3 Locations
         .bottom
-          select#filterLocations(name="locations", value="Taiwan")
+            el-select(v-model="locations", filterable, placeholder="選擇區域", @change="setLocationFilter")
+                el-option(v-for="item in options", :key="item.value", :label="item.label", :value="item.value")
       .filters-item
         .top
           h3 Dates
@@ -35,6 +36,27 @@
             input(type="checkbox", id="")
             label(for="") Outdoors
 </template>
+
+<script>
+import refLocations from '@/pages/filter/locations';
+import store from '@/store/index';
+export default {
+  data () {
+    return {
+      locations: '',
+      options: refLocations
+    };
+  },
+  methods: {
+    setLocationFilter (filterValue) {
+      store.dispatch('setFilters', {
+        name: 'location',
+        value: filterValue
+      });
+    }
+  }
+};
+</script>
 
 <style lang="sass" scoped>
 @import @/pages/filter/main.sass

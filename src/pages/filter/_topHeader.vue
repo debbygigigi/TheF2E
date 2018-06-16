@@ -7,6 +7,16 @@ header
         el-input(type="text", placeholder="Explore your own activities", prefix-icon="el-icon-search", v-model="search")
 </template>
 
+<script>
+export default {
+  data () {
+    return {
+      search: ''
+    };
+  }
+};
+</script>
+
 <style lang="sass" scoped>
 @import @/pages/filter/main.sass
 

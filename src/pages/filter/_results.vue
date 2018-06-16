@@ -1,20 +1,34 @@
 <template lang="pug">
     .results
-        .results-item(v-for="i in 5")
+        .results-item(v-for="attraction in filterAttractions")
             .img
-                img(src="https://fakeimg.pl/220/", alt="這是圖片")
+                img(:src="attraction.Picture1", alt="這是圖片")
             .results-content
-                h2  Kogi Cosby sweater ethical.
-                p Donec euismod scelerisque ligula. Maecenas eu varius risus, eu aliquet arcu. Curabitur fermentum suscipit est, tincidunt mattis lorem luctus id. Donec eget massa a diam condimentum pretium. Aliquam erat volutpat. Integer ut tincidunt orci. Etiam tristique, elit ut consectetur iaculis, metus lectus mattis justo, vel mollis eros neque quis augue. Sed lobortis ultrices lacus, a placerat metus rutrum sit amet. Aenean ut suscipit justo.
+                h2  {{ attraction.Name }}
+                p {{ attraction.Description }}
                 .detail
                     span.name Ethan Foster
                     span.tag Entertainment
                 .other
                     i 地點
-                    span Kaohsiung City
+                    span {{ attraction.Zone}}
                     i 日立
-                    span 2018/5/24 - 2018/5/31
+                    span {{ attraction.Opentime }}
 </template>
+
+<script>
+import store from '@/store/index';
+export default {
+  created () {
+    store.dispatch('getAttractions');
+  },
+  computed: {
+    filterAttractions () {
+      return store.getters.filterAttractions;
+    }
+  }
+};
+</script>
 
 <style lang="sass" scoped>
 @import @/pages/filter/main.sass
@@ -25,11 +39,14 @@
         background-color: white
         box-shadow: 2px 5px 10px $gray-light
         margin-bottom: 24px
-        @media screen and (max-width: $break-tablet)
-          flex-direction: column
+        cursor: pointer
+        transition: all 0.2s
         &:last-of-type
-          margin-bottom: 0
-
+            margin-bottom: 0
+        &:hover
+            transform: translateX(-4px)
+        @media screen and (max-width: $break-tablet)
+            flex-direction: column
         .img
           width: 220px
           flex: 1 0 auto
@@ -56,6 +73,7 @@
             text-overflow: ellipsis
             display: -webkit-box
             margin-bottom: 16px
+            line-height: 24px
           .detail
             margin-bottom: 16px
             .name

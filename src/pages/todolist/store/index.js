@@ -3,7 +3,8 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+export default {
+  namespaced: true,
   state: { // = data
     todos: [],
     editId: -1
@@ -34,4 +35,4 @@ export default new Vuex.Store({
       state.editId = id;
     }
   }
-});
+};
