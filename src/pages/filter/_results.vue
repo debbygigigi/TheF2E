@@ -1,6 +1,16 @@
 <template lang="pug">
+.search
+    h2.result-text Showing #[strong {{ resultsLength }}] results by…
+    ul.tags
+        li
+            span Koahsiung
+            i x
+        li
+            span Entertainment
+            i x
     .results
-        .results-item(v-for="attraction in filterAttractions")
+        .results-item(v-for="attraction in filterAttractions", @click="clickAttraction(attraction._id)")
+            // router-link.link(:to="`/filter/read/${attraction._id}`")
             .img
                 img(:src="attraction.Picture1", alt="這是圖片")
             .results-content
@@ -25,6 +35,15 @@ export default {
   computed: {
     filterAttractions () {
       return store.getters.filterAttractions;
+    },
+    resultsLength () {
+      return store.getters.resultsTotal;
+    }
+  },
+  methods: {
+    clickAttraction (id) {
+      store.dispatch('setReadAttraction', id);
+      this.$router.push({ path: `/filter/read/${id}` });
     }
   }
 };
@@ -33,9 +52,30 @@ export default {
 <style lang="sass" scoped>
 @import @/pages/filter/main.sass
 
+.result-text
+    font-size: 24px
+    margin-bottom: 8px
+    strong
+        color: $purple
+.tags
+    display: flex
+    margin-bottom: 24px
+    color: $purple
+    list-style: none
+    padding: 0
+    li
+        border: 1px solid $purple
+        border-radius: 100px
+        padding: 8px 16px
+        font-family: Roboto-Italic
+        font-style: italic
+        margin-right: 8px
+    i
+        margin-left: 8px
 .results
     .results-item
         display: flex
+        position: relative
         background-color: white
         box-shadow: 2px 5px 10px $gray-light
         margin-bottom: 24px
@@ -47,6 +87,10 @@ export default {
             transform: translateX(-4px)
         @media screen and (max-width: $break-tablet)
             flex-direction: column
+        .link
+            position: absolute
+            width: 100%
+            height: 100%
         .img
           width: 220px
           flex: 1 0 auto

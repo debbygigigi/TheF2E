@@ -3,6 +3,7 @@ import axios from 'axios';
 export default {
   state: {
     attractions: [],
+    activeId: null,
     filters: {
       location: ''
     }
@@ -19,6 +20,10 @@ export default {
     resultsTotal (state, getters) {
       if (!state.attractions) return;
       return getters.filterAttractions.length;
+    },
+    readAttraction (state) {
+      if (!state.attractions) return;
+      return state.attractions.filter(attr => attr._id === state.activeId)[0];
     }
   },
   actions: {
@@ -36,6 +41,10 @@ export default {
     },
     setFilters (context, content) {
       context.commit('SET_FILTERS', content);
+    },
+    setReadAttraction (context, id) {
+      console.log('setReadAttraction', id);
+      context.commit('SET_READ_ATTRACTION', id);
     }
   },
   mutations: {
@@ -44,6 +53,10 @@ export default {
     },
     SET_FILTERS (state, content) {
       state.filters[content.name] = content.value;
+    },
+    SET_READ_ATTRACTION (state, id) {
+      state.activeId = id;
+      console.log(state.activeId);
     }
   }
 };
