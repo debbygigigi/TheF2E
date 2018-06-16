@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import home from '@/pages/home.vue';
 import todolist from '@/pages/todolist/index.vue';
 import filter from '@/pages/filter/index.vue';
+import codeList from '@/pages/codeList/index.vue';
 
 Vue.use(Router);
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/filter',
       name: 'filter',
       component: filter
+    },
+    {
+      path: '/codeList',
+      name: 'codeList',
+      component: codeList
     }
   ]
 });

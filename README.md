@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+[demo]( https://jijigo.github.io/TheF2E/)
+
 ## Build Setup
 
 ``` bash
