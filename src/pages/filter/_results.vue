@@ -2,12 +2,12 @@
 .search
     h2.result-text Showing #[strong {{ resultsLength }}] results by…
     ul.tags
-        li
-            span Koahsiung
-            i x
-        li
-            span Entertainment
-            i x
+        li(v-for="tag in filterTags")
+            span {{ tag.value }}
+            i(@click="removeFilter(tag)") x
+        li(v-for="tag in filterCategoriesTags")
+            span {{ tag }}
+            i(@click="removeFilter({key: 'categories', value: tag})") x
     .results
         .results-item(v-for="attraction in filterAttractions", @click="clickAttraction(attraction._id)")
             .img
@@ -37,12 +37,21 @@ export default {
     },
     resultsLength () {
       return store.getters.resultsTotal;
+    },
+    filterTags () {
+      return store.getters.filterTags;
+    },
+    filterCategoriesTags () {
+      return store.getters.filterCategoriesTags;
     }
   },
   methods: {
     clickAttraction (id) {
       store.dispatch('setReadAttraction', id);
       this.$router.push({ path: `/filter/read/${id}` });
+    },
+    removeFilter (tag) {
+      store.dispatch('removeFilter', tag);
     }
   }
 };

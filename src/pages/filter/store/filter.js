@@ -1,4 +1,5 @@
 import axios from 'axios';
+var _ = require('lodash');
 
 export default {
   state: {
@@ -6,11 +7,14 @@ export default {
     activeId: null,
     filters: {
       keyword: '',
-      location: ''
-    }
+      location: '',
+      categories: []
+    },
+    tags: []
   },
   getters: {
     filterAttractions (state) {
+      // todo 寫太醜
       if (!state.attractions) return;
       let res = state.attractions;
       if (state.filters.location) {
@@ -31,10 +35,20 @@ export default {
           attr.Description = attr.Description.replace(state.filters.keyword, `<span class=highlight>${state.filters.keyword}</span>`);
           return attr;
         });
-        return res;
+      }
+      if (state.filters.categories) {
+        state.filters.categories.forEach(category => {
+          if (category === '免費參觀') {
+            res = res.filter(attr => attr.Ticketinfo === '免費參觀');
+          }
+          if (category === '全天候開放') {
+            res = res.filter(attr => attr.Opentime === '全天候開放');
+          }
+        });
       } else {
         return res;
       }
+      return res;
     },
     resultsTotal (state, getters) {
       if (!state.attractions) return;
@@ -43,6 +57,21 @@ export default {
     readAttraction (state) {
       if (!state.attractions) return;
       return state.attractions.filter(attr => attr._id === state.activeId)[0];
+    },
+    filterTags (state) {
+      let tags = [];
+      _.forEach(state.filters, (filter, key) => {
+        if (!filter || key === 'categories') return;
+        tags.push({
+          key: key,
+          value: filter
+        });
+      });
+      return tags;
+      // return _.compact(_.flattenDeep(Object.values(state.filters)));
+    },
+    filterCategoriesTags (state) {
+      return state.filters.categories;
     }
   },
   actions: {
@@ -56,6 +85,7 @@ export default {
           context.commit('GET_ATTRACTIONS', response.data.result.records);
         })
         .catch(function (error) {
+          console.log(error);
         });
     },
     setFilters (context, content) {
@@ -63,6 +93,9 @@ export default {
     },
     setReadAttraction (context, id) {
       context.commit('SET_READ_ATTRACTION', id);
+    },
+    removeFilter (context, data) {
+      context.commit('REMOVE_FILTER', data);
     }
   },
   mutations: {
@@ -74,6 +107,14 @@ export default {
     },
     SET_READ_ATTRACTION (state, id) {
       state.activeId = id;
+    },
+    REMOVE_FILTER (state, data) {
+      if (data.key === 'categories') {
+        let index = _.indexOf(state.filters.categories, data.value);
+        state.filters.categories.splice(index, 1);
+      } else {
+        state.filters[data.key] = '';
+      }
     }
   }
 };

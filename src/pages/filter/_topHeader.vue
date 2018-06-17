@@ -1,7 +1,7 @@
 <template lang="pug">
 header
     .logo
-        a(href="#")
+        a(href="/#/filter")
             img(src="https://hexschool.github.io/THE_F2E_Design/week2-filter/assets/logo.svg", alt="")
     .search-input
         el-input(type="text", placeholder="Explore your own activities", prefix-icon="el-icon-search", v-model="keyword", @change="search")
@@ -10,10 +10,10 @@ header
 <script>
 import store from '@/store/index';
 export default {
-  data () {
-    return {
-      keyword: ''
-    };
+  computed: {
+    keyword () {
+      return store.state.filter.filters.keyword;
+    }
   },
   methods: {
     search (value) {
