@@ -15,10 +15,11 @@ import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 import faCalendarAlt from '@fortawesome/fontawesome-free-regular/faCalendarAlt';
 import faFile from '@fortawesome/fontawesome-free-regular/faFile';
 import faCommentDots from '@fortawesome/fontawesome-free-regular/faCommentDots';
+import faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt';
 
 Vue.use(ElementUI);
 
-fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots);
+fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots, faMapMarkerAlt);
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

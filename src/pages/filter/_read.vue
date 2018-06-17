@@ -10,13 +10,13 @@
                 img(:src="readAttraction.Picture1", alt="這是圖片")
             .article-content
                 h1 {{ readAttraction.Name || 123 }}
-                .detail
-                    span.name Ethan Foster
-                    span.tag Entertainment
+                // .detail
+                //     span.name Ethan Foster
+                //     span.tag Entertainment
                 .other
-                    i 地點
-                    span {{ readAttraction.Zone }}
-                    i 日立
+                    font-awesome-icon.icon(:icon="['fas', 'map-marker-alt']")
+                    span {{ readAttraction.Zone}}
+                    font-awesome-icon.icon(:icon="['far', 'calendar-alt']")
                     span {{ readAttraction.Opentime }}
                 .content
                     | {{ readAttraction.Description }}
@@ -24,10 +24,13 @@
 
 <script>
 import store from '@/store/index';
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
 export default {
+  components: {
+    FontAwesomeIcon
+  },
   mounted () {
-    console.log(this.$route.params.id);
     store.dispatch('setReadAttraction', this.$route.params.id);
   },
   computed: {
@@ -90,9 +93,13 @@ export default {
                 font-family: "Roboto-Italic"
                 font-style: italic
             .other
-                color: $gray-dark
                 font-family: Roboto-Regular
                 margin-bottom: 24px
+                .icon
+                    margin-right: 8px
+                span
+                    color: $gray-dark
+                    margin-right: 20px
             .content
                 font-size: 16px
                 line-height: 24px

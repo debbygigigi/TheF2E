@@ -15,19 +15,24 @@
             .results-content
                 h2(v-html="attraction.Name")
                 p(v-html="attraction.Description")
-                .detail
-                    span.name Ethan Foster
-                    span.tag Entertainment
+                // .detail
+                //     // span.name Ethan Foster
+                //     span.tag Entertainment
                 .other
-                    i 地點
+                    font-awesome-icon.icon(:icon="['fas', 'map-marker-alt']")
                     span {{ attraction.Zone}}
-                    i 日立
+                    font-awesome-icon.icon(:icon="['far', 'calendar-alt']")
                     span {{ attraction.Opentime }}
 </template>
 
 <script>
 import store from '@/store/index';
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+
 export default {
+  components: {
+    FontAwesomeIcon
+  },
   created () {
     store.dispatch('getAttractions');
   },
@@ -147,7 +152,11 @@ export default {
                     font-family: "Roboto-Italic"
                     font-style: italic
             .other
-                color: $gray-dark
                 font-family: Roboto-Regular
+                .icon
+                    margin-right: 8px
+                span
+                    color: $gray-dark
+                    margin-right: 20px
 
 </style>
