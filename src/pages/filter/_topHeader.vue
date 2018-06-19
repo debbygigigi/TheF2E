@@ -11,8 +11,16 @@ header
 import store from '@/store/index';
 export default {
   computed: {
-    keyword () {
-      return store.state.filter.filters.keyword;
+    keyword: {
+      get () {
+        return store.state.filter.filters.keyword;
+      },
+      set (value) {
+        store.dispatch('setFilters', {
+          name: 'keyword',
+          value: value
+        });
+      }
     }
   },
   methods: {
@@ -25,6 +33,38 @@ export default {
   }
 };
 </script>
+
+<style lang="sass">
+@import @/pages/filter/main.sass
+
+.search-input
+    @media screen and (max-width: $break-mobile)
+        box-shadow: 0 5px 10px 0 $gray-medium
+        z-index: 1
+    .el-input__inner
+        background-color: transparent
+        border: none
+        border-bottom: 1px solid white
+        border-radius: 0
+        font-size: 20px
+        padding-left: 50px
+        color: white
+        @media screen and (max-width: $break-mobile)
+            border-bottom: 1px solid black
+            color: black
+        &::-webkit-input-placeholder
+            font-style: italic
+            font-family: "Roboto-Italic"
+            color: rgba(255,255,255,0.50)
+            @media screen and (max-width: $break-mobile)
+                color: $gray-dark
+    .el-input__prefix
+        font-size: 20px
+        color: white
+        @media screen and (max-width: $break-mobile)
+            color: black
+            top: -7px
+</style>
 
 <style lang="sass" scoped>
 @import @/pages/filter/main.sass

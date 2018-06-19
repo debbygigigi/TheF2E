@@ -4,10 +4,11 @@
     ul.tags
         li(v-for="tag in filterTags")
             span {{ tag.value }}
-            i(@click="removeFilter(tag)") x
+            font-awesome-icon.icon(:icon="['far', 'times-circle']", @click="removeFilter(tag)")
         li(v-for="tag in filterCategoriesTags")
             span {{ tag }}
-            i(@click="removeFilter({key: 'categories', value: tag})") x
+            // i(@click="removeFilter({key: 'categories', value: tag})") x
+            font-awesome-icon.icon(:icon="['far', 'times-circle']", @click="removeFilter({key: 'categories', value: tag})")
     .results
         .results-item(v-for="attraction in filterAttractions", @click="clickAttraction(attraction._id)")
             .img
@@ -81,6 +82,7 @@ export default {
     color: $purple
     list-style: none
     padding: 0
+    transition: all 0.2s
     li
         border: 1px solid $purple
         border-radius: 100px
@@ -88,8 +90,14 @@ export default {
         font-family: Roboto-Italic
         font-style: italic
         margin-right: 8px
-    i
-        margin-left: 8px
+        cursor: default
+        transition: all 0.2s
+        &:hover
+            background: $purple
+            color: white
+        .icon
+            margin-left: 8px
+            cursor: pointer;
 .results
     .results-item
         display: flex

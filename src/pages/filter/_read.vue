@@ -4,7 +4,7 @@
             el-breadcrumb-item.back(:to="{ path: '/filter' }")
                 span Explore
             el-breadcrumb-item.title
-                span {{ readAttraction.Name }}
+                span {{ readAttraction.Name || 123 }}
         .article
             .img
                 img(:src="readAttraction.Picture1", alt="這是圖片")
@@ -30,9 +30,11 @@ export default {
   components: {
     FontAwesomeIcon
   },
+  created () {},
   mounted () {
     store.dispatch('setReadAttraction', this.$route.params.id);
   },
+
   computed: {
     readAttraction () {
       return store.getters.readAttraction;

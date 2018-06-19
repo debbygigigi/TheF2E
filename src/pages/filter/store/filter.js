@@ -4,7 +4,7 @@ var _ = require('lodash');
 export default {
   state: {
     attractions: [],
-    activeId: null,
+    activeId: 1,
     filters: {
       keyword: '',
       location: '',
@@ -56,6 +56,8 @@ export default {
     },
     readAttraction (state) {
       if (!state.attractions) return;
+      console.log('readAttraction', state.activeId);
+      console.log(state.attractions);
       return state.attractions.filter(attr => attr._id === state.activeId)[0];
     },
     filterTags (state) {

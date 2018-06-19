@@ -16,11 +16,22 @@ import faCalendarAlt from '@fortawesome/fontawesome-free-regular/faCalendarAlt';
 import faFile from '@fortawesome/fontawesome-free-regular/faFile';
 import faCommentDots from '@fortawesome/fontawesome-free-regular/faCommentDots';
 import faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt';
+import faTimesCircle from '@fortawesome/fontawesome-free-regular/faTimesCircle';
+
+import VueMq from 'vue-mq';
+
+fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots, faMapMarkerAlt, faTimesCircle);
+Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
 
-fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots, faMapMarkerAlt);
-Vue.config.productionTip = false;
+Vue.use(VueMq, {
+  breakpoints: {
+    sm: 767,
+    md: 991,
+    lg: Infinity
+  }
+});
 
 /* eslint-disable no-new */
 new Vue({
