@@ -7,6 +7,11 @@ import codeList from '@/pages/codeList/index.vue';
 import results from '@/pages/filter/_results';
 import read from '@/pages/filter/_read';
 
+import adminOrder from '@/pages/adminOrder/index';
+import adminOrderHome from '@/pages/adminOrder/home';
+import adminOrderOrders from '@/pages/adminOrder/orders';
+import adminOrderProduct from '@/pages/adminOrder/product';
+
 Vue.use(Router);
 
 export default new Router({
@@ -27,16 +32,36 @@ export default new Router({
       component: filter,
       children: [
         {
-          // 当 /user/:id/profile 匹配成功，
-          // UserProfile 会被渲染在 User 的 <router-view> 中
           path: '/',
           component: results
         },
         {
-          // 当 /user/:id/posts 匹配成功
-          // UserPosts 会被渲染在 User 的 <router-view> 中
           path: 'read/:id',
           component: read
+        }
+      ]
+    },
+    {
+      path: '/adminOrder',
+      name: 'adminOrder',
+      component: adminOrder,
+      children: [
+        {
+          path: '/',
+          name: 'adminOrderHome',
+          component: adminOrderHome
+        },
+        {
+          path: 'home',
+          component: adminOrderHome
+        },
+        {
+          path: 'orders',
+          component: adminOrderOrders
+        },
+        {
+          path: 'product',
+          component: adminOrderProduct
         }
       ]
     },

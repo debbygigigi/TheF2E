@@ -17,10 +17,13 @@ import faFile from '@fortawesome/fontawesome-free-regular/faFile';
 import faCommentDots from '@fortawesome/fontawesome-free-regular/faCommentDots';
 import faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt';
 import faTimesCircle from '@fortawesome/fontawesome-free-regular/faTimesCircle';
+import faHandHoldingUsd from '@fortawesome/fontawesome-free-solid/faHandHoldingUsd';
+import faBoxes from '@fortawesome/fontawesome-free-solid/faBoxes';
+import faMoneyBillAlt from '@fortawesome/fontawesome-free-solid/faMoneyBillAlt';
 
 import VueMq from 'vue-mq';
 
-fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots, faMapMarkerAlt, faTimesCircle);
+fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots, faMapMarkerAlt, faTimesCircle, faHandHoldingUsd, faBoxes, faMoneyBillAlt);
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
