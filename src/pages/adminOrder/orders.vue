@@ -16,7 +16,7 @@
         el-dropdown(@command="handleColumn", :hide-on-click="false")
           span EDIT SECTION
           el-dropdown-menu(slot="dropdown")
-            el-dropdown-item(v-for="section in orderConfig.sections", command="section.key")
+            el-dropdown-item(v-for="(section, index) in orderConfig.sections", :key="index", command="section.key")
               el-checkbox-group(v-model="chosenSections")
                 el-checkbox(:label="section.key") {{ section.name }}
 
@@ -80,7 +80,7 @@ for (let i = 0; i < num; i++) {
     status: 'paid'
   });
 }
-const state = ['paid', 'unpaid', 'shipping', 'done'];
+// const state = ['paid', 'unpaid', 'shipping', 'done'];
 
 export default {
   data () {

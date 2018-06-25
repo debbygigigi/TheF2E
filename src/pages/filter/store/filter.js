@@ -13,7 +13,7 @@ export default {
     tags: []
   },
   getters: {
-    filterAttractions(state) {
+    filterAttractions (state) {
       // todo 寫太醜
       if (!state.attractions) return;
       let res = state.attractions;
@@ -50,15 +50,15 @@ export default {
       }
       return res;
     },
-    resultsTotal(state, getters) {
+    resultsTotal (state, getters) {
       if (!state.attractions) return;
       return getters.filterAttractions.length;
     },
-    readAttraction(state) {
+    readAttraction (state) {
       if (!state.attractions) return;
       return state.attractions.filter(attr => attr._id === state.activeId)[0];
     },
-    filterTags(state) {
+    filterTags (state) {
       let tags = [];
       _.forEach(state.filters, (filter, key) => {
         if (!filter || key === 'categories') return;
@@ -70,12 +70,12 @@ export default {
       return tags;
       // return _.compact(_.flattenDeep(Object.values(state.filters)));
     },
-    filterCategoriesTags(state) {
+    filterCategoriesTags (state) {
       return state.filters.categories;
     }
   },
   actions: {
-    getAttractions(context) {
+    getAttractions (context) {
       context.commit('GET_ATTRACTIONS');
       const api =
         'https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-456f-80c0-249eae2fcc97';
@@ -88,27 +88,27 @@ export default {
           console.log(error);
         });
     },
-    setFilters(context, content) {
+    setFilters (context, content) {
       context.commit('SET_FILTERS', content);
     },
-    setReadAttraction(context, id) {
+    setReadAttraction (context, id) {
       context.commit('SET_READ_ATTRACTION', id);
     },
-    removeFilter(context, data) {
+    removeFilter (context, data) {
       context.commit('REMOVE_FILTER', data);
     }
   },
   mutations: {
-    GET_ATTRACTIONS(state, results) {
+    GET_ATTRACTIONS (state, results) {
       state.attractions = results;
     },
-    SET_FILTERS(state, content) {
+    SET_FILTERS (state, content) {
       state.filters[content.name] = content.value;
     },
-    SET_READ_ATTRACTION(state, id) {
+    SET_READ_ATTRACTION (state, id) {
       state.activeId = id;
     },
-    REMOVE_FILTER(state, data) {
+    REMOVE_FILTER (state, data) {
       if (data.key === 'categories') {
         let index = _.indexOf(state.filters.categories, data.value);
         state.filters.categories.splice(index, 1);

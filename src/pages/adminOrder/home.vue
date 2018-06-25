@@ -11,7 +11,7 @@
                 span.el-dropdown-link Weekly
                     i.el-icon-arrow-down.el-icon--right
                 el-dropdown-menu(slot="dropdown")
-                    el-dropdown-item(v-for="option in dateOptions", :command="option.value") {{ option.name }}
+                    el-dropdown-item(v-for="(option, index) in dateOptions", :key="index", :command="option.value") {{ option.name }}
     el-row.total(:gutter="20")
         el-col.item(:span="8").total-revenue
             .grid-content
@@ -40,7 +40,7 @@
         el-col(:span="12")
             .grid-content.transaction
                 h1 Transaction Website
-                el-row(v-for="i in 4")
+                el-row(v-for="i in 4", :key="i")
                     el-col.icon(:span="4") icon
                     el-col.sitename(:span="8") Facebook.com
                     el-col.mount(:span="6") 45,836
@@ -48,7 +48,7 @@
         el-col(:span="12")
             .grid-content.latest
                 h1 Latest Orders
-                el-row(v-for="i in 4")
+                el-row(v-for="i in 4", :key="i")
                     el-col.left(:span="20")
                         .img
                             img(src="https://fakeimg.pl/100/")

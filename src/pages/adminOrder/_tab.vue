@@ -3,7 +3,7 @@ div.topHeader
     .container
         h1 Shoptime
         el-tabs.nav(v-model="activeName" @tab-click="handleClick")
-            el-tab-pane(v-for="tab in tabs", :label="tab", :name="tab")
+            el-tab-pane(v-for="tab in tabs", :key="tab", :label="tab", :name="tab")
         h3 ADMIN
 </template>
 
