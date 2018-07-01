@@ -70,8 +70,7 @@
     height: 100vh
     display: grid
     +gridTemplate(8, 20)
-    @media screen and (max-width: $xl)
-        margin: 32px
+    margin: 32px
 
     header
         grid-column: 3 / span 4
