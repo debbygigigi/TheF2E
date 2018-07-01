@@ -12,6 +12,10 @@ import adminOrderHome from '@/pages/adminOrder/home';
 import adminOrderOrders from '@/pages/adminOrder/orders';
 import adminOrderProduct from '@/pages/adminOrder/product';
 
+import productGallery from '@/pages/productGallery/index';
+
+
+
 Vue.use(Router);
 
 export default new Router({
@@ -64,6 +68,10 @@ export default new Router({
           component: adminOrderProduct
         }
       ]
+    },
+    {
+      path: '/productGallery',
+      component: productGallery
     },
     {
       path: '/codeList',

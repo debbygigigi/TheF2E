@@ -1,0 +1,18 @@
+$columns-width: calc((100vw - 64px) / 8)
+$rows-width: calc(#{$columns-width} * 0.83)
+$xl: 1280px
+
+// @media screen and (max-width: $xl)
+//     $columns-width: calc(100% / 8)
+
+=gridTemplate($columns, $rows)
+    grid-template-columns: repeat($columns, $columns-width)
+    grid-template-rows: repeat($rows, $rows-width)
+
+=gridArea($columns, $rows, $h, $w)
+    grid-area: $columns unquote("/") $rows unquote("/") ($columns + $h) unquote("/") ($rows + $w)
+
+=image($url)
+    background: url($url)
+    background-size: cover
+    background-position: center

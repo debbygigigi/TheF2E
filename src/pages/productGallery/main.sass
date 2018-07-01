@@ -1,0 +1,62 @@
+@import @/pages/productGallery/_mixin.sass
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500i,700,900")
+
+$image-01: "https://images.unsplash.com/photo-1513827379601-9dba5099a3f9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1acdd78f34ee75aade9e313251bb1695&auto=format&fit=crop&w=934&q=80"
+$image-02: "https://images.unsplash.com/photo-1514632542677-48fae74a01b2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cf412aceb1d689765e387d30fca7210a&auto=format&fit=crop&w=934&q=80"
+$image-03: "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0f994eef47e5fb1a67849703cc961b3&auto=format&fit=crop&w=1950&q=80"
+$image-04: "https://images.unsplash.com/photo-1484516758160-69878111a911?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=39466d66952b133d5a5cff642b970d05&auto=format&fit=crop&w=774&q=80"
+$image-05: "https://images.unsplash.com/photo-1525448198276-222de3961638?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=43fb25556cdbd191e520c7f28739e40d&auto=format&fit=crop&w=1950&q=80"
+$image-06: "https://images.unsplash.com/photo-1519406709381-c1f293304b28?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=98c497a29f229085d9574ee8b6eeef8c&auto=format&fit=crop&w=668&q=80"
+$image-07: "https://images.unsplash.com/photo-1516914943479-89db7d9ae7f2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=63ff45d79414b3166b08b800a32018be&auto=format&fit=crop&w=668&q=80"
+$image-pattern: "https://hexschool.github.io/THE_F2E_Design/week4-product%20gallery/assets/pattern%20unit.png"
+$main-color: #50E3C2
+$margin-column: 60px
+$margin-row: 50px
+
+*
+    font-family: "Roboto", sans-serif
+
+h1, h2, h3, p
+    margin: 0
+
+h1
+    font-size: 72px
+
+h2
+    font-size: 48px
+
+.border
+    border: calc(#{$columns-width} / 6) solid $main-color
+
+.block
+    background: $main-color
+
+.title
+    position: relative
+
+    &:before
+        content: attr(data-text)
+        position: absolute
+        top: -15px
+        left: 0
+        color: rgba(0, 0, 0, 0.3)
+        overflow: hidden
+        height: 26px
+
+    &:after
+        content: attr(data-text)
+        position: absolute
+        left: 0
+        top: -24px
+        color: rgba(0, 0, 0, 0.1)
+        overflow: hidden
+        height: 20px
+
+.subtitle
+    p
+        font-size: 24px
+        font-style: italic
+        font-weight: bold
+
+.order
