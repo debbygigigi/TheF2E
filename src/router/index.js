@@ -13,8 +13,9 @@ import adminOrderOrders from '@/pages/adminOrder/orders';
 import adminOrderProduct from '@/pages/adminOrder/product';
 
 import productGallery from '@/pages/productGallery/index';
-
-
+import comicViewer from '@/pages/comicViewer/index';
+import comicViewerHome from '@/pages/comicViewer/_home';
+import comicViewerReading from '@/pages/comicViewer/_reading';
 
 Vue.use(Router);
 
@@ -72,6 +73,21 @@ export default new Router({
     {
       path: '/productGallery',
       component: productGallery
+    },
+    {
+      path: '/comicViewer',
+      component: comicViewer,
+      children: [
+        {
+          path: '/',
+          name: 'comicViewerHome',
+          component: comicViewerHome
+        },
+        {
+          path: 'chapter/:id',
+          component: comicViewerReading
+        }
+      ]
     },
     {
       path: '/codeList',
