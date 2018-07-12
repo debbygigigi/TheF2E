@@ -39,6 +39,7 @@
 <script>
 import 'swiper/dist/css/swiper.css';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import store from '@/store/index';
 
 import fontawesome from '@fortawesome/fontawesome';
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
@@ -134,6 +135,9 @@ export default {
       let posX = 512 / 12 * (this.activeIndex + 1);
       return { left: posX + 'px' };
     }
+  },
+  created () {
+    store.dispatch('getComics');
   },
   mounted () {},
   methods: {
