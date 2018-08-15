@@ -90,6 +90,18 @@ export default new Router({
       ]
     },
     {
+      path: '/validation',
+      component: require('@/pages/validation/index').default
+      // children: [
+      //   {
+      //     path: '/',
+      //     name: 'createAccount',
+      //     component: require('@/pages/validation/step1').default
+      //   },
+
+      // ]
+    },
+    {
       path: '/codeList',
       name: 'codeList',
       component: codeList
