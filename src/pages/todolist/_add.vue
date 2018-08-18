@@ -7,7 +7,7 @@
 
 <script>
 import item from '@/pages/todolist/_item';
-import store from '@/pages/todolist/store/index';
+import store from '@/store/index';
 
 const newTodo = {
   id: 2,
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     edit () {
-      return store.state.editId === 0;
+      return store.state.todolist.editId === 0;
     }
   },
   methods: {

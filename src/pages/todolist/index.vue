@@ -15,7 +15,8 @@ import add from '@/pages/todolist/_add';
 import item from '@/pages/todolist/_item';
 
 // import Eventbus from '@/helper/eventbus';
-import store from '@/pages/todolist/store/index';
+// import store from '@/pages/todolist/store/index';
+import store from '@/store/index';
 
 export default {
   name: 'todolist',
@@ -29,10 +30,10 @@ export default {
   },
   computed: {
     todos () {
-      return store.state.todos;
+      return store.state.todolist.todos;
     },
     nowEdit () {
-      return store.state.editId;
+      return store.state.todolist.editId;
     }
   },
   mounted () {

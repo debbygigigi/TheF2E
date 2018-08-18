@@ -4,7 +4,6 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export default {
-  namespaced: true,
   state: { // = data
     todos: [],
     editId: -1
@@ -29,7 +28,9 @@ export default {
   },
   mutations: {
     pushNewTodo (state, newTodo) {
+      console.log(newTodo);
       state.todos.push(newTodo);
+      console.log(state.todos);
     },
     changeEditId (state, id) {
       state.editId = id;

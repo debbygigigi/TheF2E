@@ -85,7 +85,7 @@
 
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
-import store from '@/pages/todolist/store/index';
+import store from '@/store/index';
 import { DatePicker, TimePicker } from 'element-ui';
 import Vue from 'vue';
 const moment = require('moment');
@@ -129,7 +129,7 @@ export default {
   },
   computed: {
     collapse () {
-      return this.todoData.id === store.state.editId;
+      return this.todoData.id === store.state.todolist.editId;
     },
     deadlineFormat () {
       // this.todoData
