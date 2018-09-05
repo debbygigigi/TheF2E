@@ -1,24 +1,30 @@
 <template>
-    <div class="item__wrapper">
+    <div class="item__wrapper" :class="{'starred': todoData.starred}">
         <div
             :class="{'collapse': collapse}"
             class="item__header">
             <div class="header__main">
                 <label v-if="mode === 'edit'" class="checkbox__wrapper" :for="'checkbox' + todoData.id">
-                    <input type="checkbox" :id="'checkbox' + todoData.id">
+                    <input type="checkbox" v-model="todoData.isCompleted" :id="'checkbox' + todoData.id">
                     <div class="checkbox__indicator"></div>
                 </label>
-                <input v-if="collapse" v-model="todoData.title" class="input" type="text" placeholder="Type Something Here…">
-                <span v-if="!collapse" class="input"> {{ todoData.title }}</span>
-                <a v-if="mode === 'edit'" href="" class="star">
-                    <font-awesome-icon :icon="['far', 'star']" />
+                <input v-if="collapse" class="input" v-model="todoData.title" type="text" placeholder="Type Something Here…" :class="{done: todoData.isCompleted}">
+                <span v-if="!collapse" class="input" :class="{done: todoData.isCompleted}"> {{ todoData.title }}</span>
+                <a v-if="mode === 'edit'" href="" class="star" @click.prevent="starTodo">
+                    <font-awesome-icon :icon="[todoData.starred ? 'fas' : 'far', 'star']"
+                                       :class="{'starred': todoData.starred}"/>
                 </a>
                 <a v-if="mode === 'edit'" href="" class="edit" @click.prevent="editTodo">
                     <font-awesome-icon icon="pencil-alt" />
                 </a>
             </div>
             <div v-if="!collapse" class="header__icon">
-                <font-awesome-icon :icon="['far', 'file']" />
+                <span v-if="todoData.deadline.date" class="icon calender-icon">
+                    <font-awesome-icon :icon="['far', 'calendar-alt']" />
+                    <span>{{ deadlineFormat }}</span>
+                </span>
+                <font-awesome-icon v-if="todoData.files.length !== 0" class="icon" :icon="['far', 'file']" />
+                <font-awesome-icon v-if="todoData.comment" class="icon" :icon="['far', 'comment-dots']" />
             </div>
         </div>
         <div v-if="collapse">
@@ -116,8 +122,8 @@ export default {
       todoData: {
         id: 0,
         title: '',
-        status: '',
-        stared: false,
+        isCompleted: false,
+        starred: false,
         deadline: {
           date: null,
           time: null
@@ -143,13 +149,12 @@ export default {
   },
   methods: {
     handleFile ($event) {
-      console.log($event);
-      console.log($event.target.files[0]);
       this.todoData.files.push($event.target.files[0]);
-      console.log(this.todoData);
     },
     handleFilesDate (date) {
-      console.log(date);
+      if (!date) {
+        return null;
+      }
       moment(date).fromNow();
       return moment(date).fromNow();
     },
@@ -158,6 +163,9 @@ export default {
     },
     editTodo () {
       store.dispatch('editTodo', this.todoData.id);
+    },
+    starTodo () {
+      this.todoData.starred = !this.todoData.starred;
     },
     addTodo () {
       store.dispatch('addTodo', this.todoData);
@@ -178,6 +186,10 @@ export default {
     box-shadow: 0 4px 4px 0 $gray-medium;
     border-radius: 5px;
     overflow: hidden;
+
+    &.starred {
+      background: $orange-light;
+    }
   }
 
   &__header {
@@ -193,6 +205,9 @@ export default {
         margin-top: 16px;
         padding-left: 40px;
         color: $gray-dark;
+        .icon {
+          margin-right: 16px;
+        }
       }
     }
 
@@ -207,6 +222,9 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
+      &.done {
+        text-decoration: line-through;
+      }
 
       &:hover,
       &:focus {
@@ -224,6 +242,14 @@ export default {
 
     .star {
       color: $black;
+
+      .fa-star {
+        transition: all 0.5s;
+      }
+
+      .starred {
+        color: $orange;
+      }
     }
 
     .edit {

@@ -3,9 +3,36 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+const defaultTodos = [
+  {
+    id: 1,
+    title: '123',
+    isCompleted: false,
+    starred: false,
+    deadline: {
+      date: null,
+      time: null
+    },
+    files: [],
+    comment: null
+  },
+  {
+    id: 2,
+    title: '456',
+    isCompleted: false,
+    starred: false,
+    deadline: {
+      date: null,
+      time: null
+    },
+    files: [],
+    comment: null
+  }
+];
+
 export default {
   state: { // = data
-    todos: [],
+    todos: defaultTodos,
     editId: -1
   },
   getters: {
@@ -23,6 +50,9 @@ export default {
     },
     done ({ commit }) {
       commit('changeEditId', -1);
+    },
+    updateList ({ commit }, newList) {
+      commit('updateList', newList);
     }
 
   },
@@ -34,6 +64,12 @@ export default {
     },
     changeEditId (state, id) {
       state.editId = id;
+    },
+    updateList (state, newList) {
+      Vue.set(state, 'todos', newList);
+      // this.$set(vm.userProfile, 'age', 27)
+      // state.todos = newList;
+      console.log(state.todos);
     }
   }
 };

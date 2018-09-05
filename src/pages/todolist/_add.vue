@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="modal-add">
         <input v-if="!edit" type="text" placeholder="＋ Add Task" @focus="showItem">
         <item collapse mode="add" v-if="edit"></item>
     </div>
