@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 import fontawesome from '@fortawesome/fontawesome';
 import faStar from '@fortawesome/fontawesome-free-regular/faStar';
+import fasStar from '@fortawesome/fontawesome-free-solid/faStar';
 import faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 import faCalendarAlt from '@fortawesome/fontawesome-free-regular/faCalendarAlt';
@@ -23,7 +24,7 @@ import faMoneyBillAlt from '@fortawesome/fontawesome-free-solid/faMoneyBillAlt';
 
 import VueMq from 'vue-mq';
 
-fontawesome.library.add(faStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots, faMapMarkerAlt, faTimesCircle, faHandHoldingUsd, faBoxes, faMoneyBillAlt);
+fontawesome.library.add(faStar, fasStar, faPencilAlt, faPlus, faCalendarAlt, faFile, faCommentDots, faMapMarkerAlt, faTimesCircle, faHandHoldingUsd, faBoxes, faMoneyBillAlt);
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
