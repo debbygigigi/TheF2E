@@ -38,6 +38,12 @@ export default {
   getters: {
     todoTotal (state) {
       return state.todos.length;
+    },
+    todoInProgress (state) {
+      return state.todos.filter(todo => todo.isCompleted === false);
+    },
+    todoCompleted (state) {
+      return state.todos.filter(todo => todo.isCompleted === true);
     }
   },
   actions: {

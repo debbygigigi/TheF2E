@@ -1,11 +1,12 @@
 <template>
     <div class="wrapper">
-        <tab></tab>
+        <tab @changeTab="changeTab"></tab>
         <div class="content">
             <add></add>
             <draggable v-model="todos" @start="drag=true" @end="drag=false">
                 <item v-for="todo in todos" :key="todo.id" mode="edit" class="item" :todo="todo"></item>
             </draggable>
+            <div class="calculate">{{ tasksCount }} tasks left</div>
         </div>
     </div>
 </template>
@@ -20,7 +21,9 @@ import store from '@/store/index';
 export default {
   name: 'todolist',
   data () {
-    return {};
+    return {
+      filter: ''
+    };
   },
   components: {
     tab,
@@ -31,7 +34,14 @@ export default {
   computed: {
     todos: {
       get () {
-        return store.state.todolist.todos;
+        switch (this.filter) {
+          case 'completed':
+            return store.getters.todoCompleted;
+          case 'inProgress':
+            return store.getters.todoInProgress;
+          default:
+            return store.state.todolist.todos;
+        }
       },
       set (value) {
         store.dispatch('updateList', value);
@@ -39,6 +49,14 @@ export default {
     },
     nowEdit () {
       return store.state.todolist.editId;
+    },
+    tasksCount () {
+      return this.todos.length;
+    }
+  },
+  methods: {
+    changeTab (filter) {
+      this.filter = filter;
     }
   }
 };
@@ -66,6 +84,14 @@ export default {
 
     .item {
       margin: 8px 0;
+    }
+
+    .calculate {
+      margin-left: 33px;
+      font-family: $font-family-status;
+      font-style: italic;
+      color: $gray-medium;
+      font-size: 24px;
     }
   }
 }
