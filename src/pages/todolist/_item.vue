@@ -133,13 +133,17 @@ export default {
       }
     };
   },
+  watch: {
+    'todoData.isCompleted' (value) {
+      store.dispatch('completeTodo', { value, id: this.todoData.id });
+    }
+  },
   computed: {
     collapse () {
       return this.todoData.id === store.state.todolist.editId;
     },
     deadlineFormat () {
-      // this.todoData
-      return moment(moment().format(this.todoData.deadline.time)).format('M/d');
+      return moment(this.todoData.deadline.date).format('M/D');
     }
   },
   mounted () {
@@ -166,6 +170,10 @@ export default {
     },
     starTodo () {
       this.todoData.starred = !this.todoData.starred;
+      store.dispatch('starTodo', {
+        value: this.todoData.starred,
+        id: this.todoData.id
+      });
     },
     addTodo () {
       store.dispatch('addTodo', this.todoData);
@@ -188,7 +196,9 @@ export default {
     overflow: hidden;
 
     &.starred {
-      background: $orange-light;
+      .item__header {
+        background: $orange-light;
+      }
     }
   }
 
@@ -293,7 +303,9 @@ export default {
         background: $white;
         color: $red;
         span {
-          transform: rotate(45deg);
+          transform: rotate(45deg) scale(1.4);
+          display: inline-block;
+          margin-right: 12px;
         }
       }
       &.btn-add {

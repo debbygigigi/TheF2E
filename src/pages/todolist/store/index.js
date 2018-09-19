@@ -54,6 +54,12 @@ export default {
     editTodo ({ commit }, id) {
       commit('changeEditId', id);
     },
+    completeTodo ({ commit }, value) {
+      commit('completeTodo', value);
+    },
+    starTodo ({ commit }, star) {
+      commit('starTodo', star);
+    },
     done ({ commit }) {
       commit('changeEditId', -1);
     },
@@ -64,9 +70,16 @@ export default {
   },
   mutations: {
     pushNewTodo (state, newTodo) {
-      console.log(newTodo);
+      newTodo.title = !newTodo.title ? '未命名' : newTodo.title;
       state.todos.push(newTodo);
-      console.log(state.todos);
+    },
+    completeTodo (state, value) {
+      let todo = state.todos.find(todo => todo.id === value.id);
+      Vue.set(todo, 'isCompleted', value.value);
+    },
+    starTodo (state, value) {
+      let todo = state.todos.find(todo => todo.id === value.id);
+      Vue.set(todo, 'starred', value.value);
     },
     changeEditId (state, id) {
       state.editId = id;
@@ -75,7 +88,6 @@ export default {
       Vue.set(state, 'todos', newList);
       // this.$set(vm.userProfile, 'age', 27)
       // state.todos = newList;
-      console.log(state.todos);
     }
   }
 };

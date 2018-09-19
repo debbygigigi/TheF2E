@@ -27,7 +27,7 @@ export default {
     changeTab (index) {
       this.active = index;
       if (index === 1) {
-        this.$emit('changeTab', 'InProgress');
+        this.$emit('changeTab', 'inProgress');
       } else if (index === 2) {
         this.$emit('changeTab', 'completed');
       } else {

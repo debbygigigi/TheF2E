@@ -84,9 +84,7 @@ export default {
         .then(function (response) {
           context.commit('GET_ATTRACTIONS', response.data.result.records);
         })
-        .catch(function (error) {
-          console.log(error);
-        });
+        .catch();
     },
     setFilters (context, content) {
       context.commit('SET_FILTERS', content);
