@@ -20,22 +20,19 @@ export default {
       if (state.filters.location) {
         res = res.filter((attr) => attr.Zone === state.filters.location);
       }
-      if (state.filters.keyword) {
-        let tags = ['Name', 'Description'];
-        res = res.filter((attr) => {
-          let flag = false;
-          tags.forEach(tag => {
-            if (attr[tag].indexOf(state.filters.keyword) !== -1) {
-              flag = true;
-            }
-          });
-          return flag;
-        }).map(attr => {
-          attr.Name = attr.Name.replace(state.filters.keyword, `<span class=highlight>${state.filters.keyword}</span>`);
-          attr.Description = attr.Description.replace(state.filters.keyword, `<span class=highlight>${state.filters.keyword}</span>`);
-          return attr;
-        });
-      }
+      res = res.map(attr => {
+        if (!state.filters.keyword) {
+          attr.Name = attr.Name.replace(`<span class="highlight">`, '').replace(`</span>`, '');
+          attr.Description = attr.Description.replace(`<span class="highlight">`, '').replace(`</span>`, '');
+        } else {
+          if (attr.Name.indexOf(state.filters.keyword) !== -1) {
+            attr.Name = attr.Name.replace(state.filters.keyword, `<span class="highlight">${state.filters.keyword}</span>`);
+            attr.Description = attr.Description.replace(state.filters.keyword, `<span class="highlight">${state.filters.keyword}</span>`);
+          }
+        }
+        return attr;
+      });
+
       if (state.filters.categories) {
         state.filters.categories.forEach(category => {
           if (category === '免費參觀') {
@@ -45,8 +42,6 @@ export default {
             res = res.filter(attr => attr.Opentime === '全天候開放');
           }
         });
-      } else {
-        return res;
       }
       return res;
     },
