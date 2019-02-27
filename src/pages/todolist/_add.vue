@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="modal-add">
         <input v-if="!edit" type="text" placeholder="＋ Add Task" @focus="showItem">
         <item collapse mode="add" v-if="edit"></item>
     </div>
@@ -7,7 +7,7 @@
 
 <script>
 import item from '@/pages/todolist/_item';
-import store from '@/pages/todolist/store/index';
+import store from '@/store/index';
 
 const newTodo = {
   id: 2,
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     edit () {
-      return store.state.editId === 0;
+      return store.state.todolist.editId === 0;
     }
   },
   methods: {

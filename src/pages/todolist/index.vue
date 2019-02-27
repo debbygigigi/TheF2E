@@ -1,10 +1,12 @@
 <template>
     <div class="wrapper">
-        <tab></tab>
+        <tab @changeTab="changeTab"></tab>
         <div class="content">
             <add></add>
-            <item class="item" :todo="todo" v-for="(todo, index) in todos" :key="index"
-                  mode="edit"></item>
+            <draggable v-model="todos" @start="drag=true" @end="drag=false">
+                <item v-for="todo in todos" :key="todo.id" mode="edit" class="item" :todo="todo"></item>
+            </draggable>
+            <div class="calculate">{{ tasksCount }} tasks left</div>
         </div>
     </div>
 </template>
@@ -13,32 +15,49 @@
 import tab from '@/pages/todolist/_tab';
 import add from '@/pages/todolist/_add';
 import item from '@/pages/todolist/_item';
-
-// import Eventbus from '@/helper/eventbus';
-import store from '@/pages/todolist/store/index';
+import draggable from 'vuedraggable';
+import store from '@/store/index';
 
 export default {
   name: 'todolist',
   data () {
-    return {};
+    return {
+      filter: ''
+    };
   },
   components: {
     tab,
     add,
-    item
+    item,
+    draggable
   },
   computed: {
-    todos () {
-      return store.state.todos;
+    todos: {
+      get () {
+        switch (this.filter) {
+          case 'completed':
+            return store.getters.todoCompleted;
+          case 'inProgress':
+            return store.getters.todoInProgress;
+          default:
+            return store.state.todolist.todos;
+        }
+      },
+      set (value) {
+        store.dispatch('updateList', value);
+      }
     },
     nowEdit () {
-      return store.state.editId;
+      return store.state.todolist.editId;
+    },
+    tasksCount () {
+      return this.todos.length;
     }
   },
-  mounted () {
-    // Eventbus.$on('editTodo', id => {
-    //   this.nowEdit = id;
-    // });
+  methods: {
+    changeTab (filter) {
+      this.filter = filter;
+    }
   }
 };
 </script>
@@ -65,6 +84,14 @@ export default {
 
     .item {
       margin: 8px 0;
+    }
+
+    .calculate {
+      margin-left: 33px;
+      font-family: $font-family-status;
+      font-style: italic;
+      color: $gray-medium;
+      font-size: 24px;
     }
   }
 }
